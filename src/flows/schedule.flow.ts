@@ -63,7 +63,8 @@ const flowSchedule = addKeyword(EVENTS.ACTION).addAction(async (ctx, { extension
 
     const formattedDateFrom = format(desiredDate, 'hh:mm a');
     const formattedDateTo = format(addMinutes(desiredDate, +DURATION_MEET), 'hh:mm a');
-    const message = `¡Perfecto! Tenemos disponibilidad de ${formattedDateFrom} a ${formattedDateTo} el día ${format(desiredDate, 'dd/MM/yyyy')}. ¿Confirmo tu reserva? *si*`;
+    const message = `¡Perfecto! Tenemos disponibilidad desde las ${formattedDateFrom} el día ${format(desiredDate, 'dd/MM/yyyy')}. ¿Confirmo tu reserva? *si*`;
+    const message_original = `¡Perfecto! Tenemos disponibilidad de ${formattedDateFrom} a ${formattedDateTo} el día ${format(desiredDate, 'dd/MM/yyyy')}. ¿Confirmo tu reserva? *si*`;
     await handleHistory({ content: message, role: 'assistant' }, state);
     await state.update({ desiredDate })
 
