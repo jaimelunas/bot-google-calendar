@@ -11,7 +11,7 @@ const DURATION_MEET = process.env.DURATION_MEET ?? 45
 
 const PROMPT_FILTER_DATE = `
 ### Contexto
-Eres un asistente de inteligencia artificial. Tu propósito es determinar la fecha y hora que el cliente quiere, en el formato yyyy/MM/dd HH:mm:ss.
+Eres un asistente de inteligencia artificial. Tu propósito es determinar la fecha y hora que el cliente quiere, en el formato yyyy/MM/dd HH:mm:ss. Todas las citas se reservan a partir de las 15:00:00. debe preguntar cuantos dias se van a quedar para agendar correctamente.
 
 ### Fecha y Hora Actual:
 {CURRENT_DAY}
@@ -55,7 +55,7 @@ const flowSchedule = addKeyword(EVENTS.ACTION).addAction(async (ctx, { extension
     const isDateAvailable = listParse.every(({ fromDate, toDate }) => !isWithinInterval(desiredDate, { start: fromDate, end: toDate }));
 
     if(!isDateAvailable){
-        const m = 'Lo siento, esa hora ya está reservada. ¿Alguna otra fecha y hora?';
+        const m = 'Lo siento, para esa fecha ya está reservada. ¿Alguna otra fecha?';
         await flowDynamic(m);
         await handleHistory({ content: m, role: 'assistant' }, state);
         return endFlow()
